@@ -2,6 +2,8 @@ from os import environ
 
 from flask import Flask
 
+from app.api import api
+
 
 def create_flask_app():
     """Flask app factory method"""
@@ -14,4 +16,5 @@ def create_flask_app():
     def hello_world():
         return "Hello World!"
 
+    api.init_app(app)
     return app

@@ -7,6 +7,7 @@ authors = ["@lex Tarasov <tarasov.oleksander@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 Flask = "^1.1.2"
+Flask-RESTful = "^0.3.8"
 
 [tool.poetry.dev-dependencies]
 black = "21.4b1"
