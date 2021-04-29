@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  course_application:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    entrypoint: uwsgi --ini ./app/production.ini
+  course_proxy_server:
+    image: nginx
+    ports:
+      - 80:80
+    links:
+      - course_application
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
