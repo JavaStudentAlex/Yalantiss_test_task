@@ -1,0 +1,286 @@
+{
+  "definitions": {
+    "Course": {
+      "properties": {
+        "classes_count": {
+          "example": 1,
+          "type": "integer"
+        },
+        "end_date": {
+          "example": "Fri, 30 Apr 2021 00:00:00 GMT",
+          "type": "string"
+        },
+        "id": {
+          "example": 1,
+          "type": "integer"
+        },
+        "start_date": {
+          "example": "Fri, 30 Apr 2021 00:00:00 GMT",
+          "type": "string"
+        },
+        "title": {
+          "example": "course1",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "OKMessage": {
+      "properties": {
+        "message": {
+          "example": "Course deleted",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ParamError": {
+      "properties": {
+        "message": {
+          "properties": {
+            "param_name": {
+              "example": "What is wrong with param",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "localhost",
+  "info": {
+    "description": "This service is the test task for Yalantis python school",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "title": "Course CRUD",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/add_course": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "AddCourse",
+        "parameters": [
+          {
+            "description": "Id of the course",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "classes": {
+                  "example": 1,
+                  "type": "integer"
+                },
+                "finish": {
+                  "example": "2019-01-01",
+                  "type": "string"
+                },
+                "start": {
+                  "example": "2019-01-01",
+                  "type": "string"
+                },
+                "title": {
+                  "example": "course1",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New course created",
+            "schema": {
+              "$ref": "#/definitions/OKMessage"
+            }
+          },
+          "400": {
+            "description": "An error occurred while creating new course",
+            "schema": {
+              "$ref": "#/definitions/ParamError"
+            }
+          }
+        },
+        "summary": "Add new course",
+        "tags": [
+          "Course CRUD"
+        ]
+      }
+    },
+    "/api/delete_course": {
+      "delete": {
+        "operationId": "DeleteCourseById",
+        "parameters": [
+          {
+            "description": "Id of the course",
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "example": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Course deleted by course id",
+            "schema": {
+              "$ref": "#/definitions/OKMessage"
+            }
+          },
+          "400": {
+            "description": "Error occurred while removing course by id",
+            "schema": {
+              "$ref": "#/definitions/ParamError"
+            }
+          }
+        },
+        "summary": "Delete course by id",
+        "tags": [
+          "Course CRUD"
+        ]
+      }
+    },
+    "/api/filter_courses": {
+      "get": {
+        "operationId": "FilterCourses",
+        "parameters": [
+          {
+            "description": "title contains this string",
+            "in": "query",
+            "name": "title_contains",
+            "schema": {
+              "example": "course",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Start of the period when the course runs, format 'year-month-day'",
+            "in": "query",
+            "name": "not_finished_till",
+            "schema": {
+              "example": "2019-01-01",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Finish of the period when the course runs, format 'year-month-day'",
+            "in": "query",
+            "name": "not_start_after",
+            "schema": {
+              "example": "2019-02-02",
+              "type": "string"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "All courses that satisfy such filters",
+            "schema": {
+              "$ref": "#/definitions/Course"
+            }
+          },
+          "400": {
+            "description": "Error occurred while filtering the courses list",
+            "schema": {
+              "$ref": "#/definitions/ParamError"
+            }
+          }
+        },
+        "summary": "Filter courses with params",
+        "tags": [
+          "Course CRUD"
+        ]
+      }
+    },
+    "/api/get_all_courses": {
+      "get": {
+        "operationId": "GetAllCourses",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of the courses",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Course"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "Get all courses",
+        "tags": [
+          "Course CRUD"
+        ]
+      }
+    },
+    "/api/get_course": {
+      "get": {
+        "operationId": "GetCourseById",
+        "parameters": [
+          {
+            "description": "Id of the course",
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "example": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "One course got by id",
+            "schema": {
+              "$ref": "#/definitions/Course"
+            }
+          },
+          "400": {
+            "description": "Error occurred by getting course by id",
+            "schema": {
+              "$ref": "#/definitions/ParamError"
+            }
+          }
+        },
+        "summary": "Get course by id",
+        "tags": [
+          "Course CRUD"
+        ]
+      }
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "tags": [
+    {
+      "description": "Base operations with course instances",
+      "name": "Course CRUD"
+    }
+  ]
+}

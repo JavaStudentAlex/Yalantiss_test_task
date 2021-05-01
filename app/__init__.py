@@ -1,3 +1,4 @@
+"""Module for initialising  flask application"""
 from datetime import date
 from os import environ
 
@@ -6,6 +7,7 @@ from flask_migrate import Migrate
 
 from app.api import api
 from app.models import Course, bcrypt, db
+from app.swagger import SWAGGER_UI_BLUEPRINT, SWAGGER_URL
 
 
 def __add_default_course(app: Flask):
@@ -31,10 +33,16 @@ def create_flask_app():
     def hello_world():
         return "Hello World!"
 
+    # init database
     db.init_app(app)
     bcrypt.init_app(app)
     Migrate(app, db)
     __add_default_course(app)
+
+    # init api
     api.init_app(app)
+
+    # init swagger
+    app.register_blueprint(SWAGGER_UI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
     return app
