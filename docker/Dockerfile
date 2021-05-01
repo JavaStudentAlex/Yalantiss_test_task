@@ -52,3 +52,10 @@ RUN poetry add uwsgi
 FROM install_base as production_base
 COPY --from=install_base $PYSETUP_PATH $PYSETUP_PATH
 COPY app app
+COPY core core
+
+COPY docker/run_app.sh /run_app.sh
+RUN chmod +x /run_app.sh
+RUN sed -i 's/\r$//' /run_app.sh
+
+ENV DATABASE_PATH=sqlite:////database/database.db
