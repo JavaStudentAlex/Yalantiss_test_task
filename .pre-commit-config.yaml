@@ -16,7 +16,6 @@ repos:
     rev: 3.9.1
     hooks:
       - id: flake8
-        additional_dependencies: [ toml ]
   # check equaling to PEP8
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.4.0
