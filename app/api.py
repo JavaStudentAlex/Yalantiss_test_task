@@ -33,9 +33,9 @@ class DetailCourseApi(Resource):
         try:
             return jsonify(get_course_by_id(course_id))
         except KeyError:
-            return {"message": "Wrong course id"}, 400
+            return {"message": {"id": "Wrong course id"}}, 400
         except Exception:
-            return {"message": "Sorry, error with database"}, 400
+            return {"message": {"database": "Sorry, error with database"}}, 400
 
 
 class DeleteCourse(Resource):
@@ -53,9 +53,9 @@ class DeleteCourse(Resource):
             remove_course_by_id(course_id)
             return {"message": "Course deleted"}, 200
         except KeyError:
-            return {"message": "Wrong course id"}, 400
+            return {"message": {"id": "Wrong course id"}}, 400
         except Exception:
-            return {"message": "Sorry, error with database"}, 400
+            return {"message": {"database": "Sorry, error with database"}}, 400
 
 
 class AddCourse(Resource):
@@ -84,17 +84,22 @@ class AddCourse(Resource):
         title, start, end, classes = args.title, args.start, args.finish, args.classes
 
         if start > end:
-            return {"Message": "Start can not be later than end"}, 400
+            return {
+                "message": {"start_date-finish_date": "Start can not be later than end"}
+            }, 400
 
         if classes < 0:
             return {
-                "Messages": "Course participants number can not be greater less than 0"
+                "message": {
+                    "classes": "Course participants number"
+                    " can not be greater less than 0"
+                }
             }, 400
         try:
             create_course(title, start, end, classes)
-            return {"Message": "Added course"}, 200
+            return {"message": "Course added"}, 200
         except Exception:
-            return {"message": "Sorry, error with database"}, 400
+            return {"message": {"database": "Sorry, error with database"}}, 400
 
 
 class FilterCourses(Resource):
@@ -121,7 +126,9 @@ class FilterCourses(Resource):
 
         if not_finished_till is not None and not_start_after is not None:
             if not_finished_till > not_start_after:
-                return {"Message": "Start date filter has to be earlier"}, 400
+                return {
+                    "message": {"time ": "Start date filter has to be earlier"}
+                }, 400
 
         return jsonify(
             find_course_by_filters(title_contains, not_finished_till, not_start_after)

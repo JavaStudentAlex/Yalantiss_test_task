@@ -48,4 +48,8 @@ def find_course_by_filters(title_contain, not_finish_till, not_start_after) -> T
     if not_start_after is not None:
         options.append(Course.start_date <= not_start_after)
 
+    # if there is no filters
+    if len(options) == 0:
+        return Course.query.all()
+
     return Course.query.filter(and_(*options)).all()
