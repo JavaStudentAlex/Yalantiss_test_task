@@ -11,6 +11,7 @@ Flask-RESTful = "^0.3.8"
 Flask-SQLAlchemy = "^2.5.1"
 Flask-Bcrypt = "^0.7.1"
 Flask-Migrate = "^2.7.0"
+flask-swagger-ui = "^3.36.0"
 
 [tool.poetry.dev-dependencies]
 black = "21.4b1"
