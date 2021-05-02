@@ -136,8 +136,8 @@ class FilterCourses(Resource):
 
 
 api = Api()
-api.add_resource(AllCoursesApi, "/api/get_all_courses")
-api.add_resource(DetailCourseApi, "/api/get_course")
-api.add_resource(DeleteCourse, "/api/delete_course")
-api.add_resource(AddCourse, "/api/add_course")
-api.add_resource(FilterCourses, "/api/filter_courses")
+api.add_resource(AllCoursesApi, "/api/get_all_courses", endpoint="get_all_courses")
+api.add_resource(DetailCourseApi, "/api/get_course", endpoint="get_course")
+api.add_resource(DeleteCourse, "/api/delete_course", endpoint="delete_course")
+api.add_resource(AddCourse, "/api/add_course", endpoint="add_course")
+api.add_resource(FilterCourses, "/api/filter_courses", endpoint="filter_courses")
