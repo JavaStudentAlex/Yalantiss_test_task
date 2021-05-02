@@ -21,6 +21,7 @@ pre-commit-hooks = "3.4.0"
 mypy = "0.812"
 pylint = "^2.8.2"
 pre-commit = "^2.12.1"
+pytest-flask = "^1.2.0"
 
 [tool.isort]
 multi_line_output = 3
