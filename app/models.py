@@ -1,3 +1,4 @@
+"""Module for defining database models"""
 from dataclasses import dataclass
 from datetime import date
 

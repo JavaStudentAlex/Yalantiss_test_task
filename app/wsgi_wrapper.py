@@ -1,3 +1,4 @@
+"""Main uwsgi starter"""
 from app import create_flask_app
 
 if __name__ == "__main__":

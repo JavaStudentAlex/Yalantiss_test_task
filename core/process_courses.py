@@ -1,3 +1,4 @@
+"""Module for main procedures for courses"""
 from datetime import date
 from typing import Tuple
 
