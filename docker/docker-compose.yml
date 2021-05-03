@@ -7,7 +7,7 @@ services:
       dockerfile: ./docker/Dockerfile
     env_file:
       - course_application.env
-    entrypoint: uwsgi --ini ./app/production.ini
+    entrypoint: /run_app.sh
     volumes:
       - ../database:/database
   course_proxy_server:

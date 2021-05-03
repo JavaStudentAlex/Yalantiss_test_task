@@ -12,6 +12,7 @@ Flask-SQLAlchemy = "^2.5.1"
 Flask-Bcrypt = "^0.7.1"
 Flask-Migrate = "^2.7.0"
 flask-swagger-ui = "^3.36.0"
+pytest-flask = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 black = "21.4b1"
@@ -21,7 +22,6 @@ pre-commit-hooks = "3.4.0"
 mypy = "0.812"
 pylint = "^2.8.2"
 pre-commit = "^2.12.1"
-pytest-flask = "^1.2.0"
 
 [tool.isort]
 multi_line_output = 3

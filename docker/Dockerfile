@@ -53,6 +53,7 @@ FROM install_base as production_base
 COPY --from=install_base $PYSETUP_PATH $PYSETUP_PATH
 COPY app app
 COPY core core
+COPY test test
 
 COPY docker/run_app.sh /run_app.sh
 RUN chmod +x /run_app.sh
