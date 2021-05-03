@@ -100,13 +100,13 @@
         ],
         "responses": {
           "200": {
-            "description": "New course created",
+            "description": "New course created if there is no invalid params",
             "schema": {
               "$ref": "#/definitions/OKMessage"
             }
           },
           "400": {
-            "description": "An error occurred while creating new course",
+            "description": "An error occurred while creating new course because of the invalid options or problems with data storage",
             "schema": {
               "$ref": "#/definitions/ParamError"
             }
@@ -138,13 +138,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Course deleted by course id",
+            "description": "Course deleted by course id if all options are valid",
             "schema": {
               "$ref": "#/definitions/OKMessage"
             }
           },
           "400": {
-            "description": "Error occurred while removing course by id",
+            "description": "An error occurred while removing course because of the invalid options or problems with data storage",
             "schema": {
               "$ref": "#/definitions/ParamError"
             }
@@ -193,13 +193,13 @@
         ],
         "responses": {
           "200": {
-            "description": "All courses that satisfy such filters",
+            "description": "All courses that satisfy such filters, if there is no filters - the whole list of courses",
             "schema": {
               "$ref": "#/definitions/Course"
             }
           },
           "400": {
-            "description": "Error occurred while filtering the courses list",
+            "description": "An error occurred while filtering the courses because of the invalid options or problems with data storage",
             "schema": {
               "$ref": "#/definitions/ParamError"
             }
@@ -225,6 +225,12 @@
                 "$ref": "#/definitions/Course"
               },
               "type": "array"
+            }
+          },
+          "400": {
+            "description": "An error occurred while filtering the courses because of the invalid options or problems with data storage",
+            "schema": {
+              "$ref": "#/definitions/ParamError"
             }
           }
         },
@@ -254,13 +260,13 @@
         ],
         "responses": {
           "200": {
-            "description": "One course got by id",
+            "description": "One course got by valid id",
             "schema": {
               "$ref": "#/definitions/Course"
             }
           },
           "400": {
-            "description": "Error occurred by getting course by id",
+            "description": "Error occurred by getting course by id because of the invalid options or problems with data storage",
             "schema": {
               "$ref": "#/definitions/ParamError"
             }

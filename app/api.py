@@ -16,7 +16,11 @@ from core.process_courses import (
 class AllCoursesApi(Resource):
     def get(self):
         """Handling get request of all courses"""
-        return jsonify(get_all_courses())
+        try:
+            result = get_all_courses()
+        except Exception:
+            return {"message": {"database": "Sorry, error with database"}}
+        return jsonify(result)
 
 
 class DetailCourseApi(Resource):
@@ -31,11 +35,12 @@ class DetailCourseApi(Resource):
         args = self.parser.parse_args()
         course_id = args.id
         try:
-            return jsonify(get_course_by_id(course_id))
+            result = get_course_by_id(course_id)
         except KeyError:
             return {"message": {"id": "Wrong course id"}}, 400
         except Exception:
             return {"message": {"database": "Sorry, error with database"}}, 400
+        return jsonify(result)
 
 
 class DeleteCourse(Resource):
@@ -51,11 +56,11 @@ class DeleteCourse(Resource):
         course_id = args.id
         try:
             remove_course_by_id(course_id)
-            return {"message": "Course deleted"}, 200
         except KeyError:
             return {"message": {"id": "Wrong course id"}}, 400
         except Exception:
             return {"message": {"database": "Sorry, error with database"}}, 400
+        return {"message": "Course deleted"}, 200
 
 
 class AddCourse(Resource):
@@ -97,9 +102,9 @@ class AddCourse(Resource):
             }, 400
         try:
             create_course(title, start, end, classes)
-            return {"message": "Course added"}, 200
         except Exception:
             return {"message": {"database": "Sorry, error with database"}}, 400
+        return {"message": "Course added"}, 200
 
 
 class FilterCourses(Resource):
@@ -129,10 +134,13 @@ class FilterCourses(Resource):
                 return {
                     "message": {"time ": "Start date filter has to be earlier"}
                 }, 400
-
-        return jsonify(
-            find_course_by_filters(title_contains, not_finished_till, not_start_after)
-        )
+        try:
+            result = find_course_by_filters(
+                title_contains, not_finished_till, not_start_after
+            )
+        except Exception:
+            return {"message": {"database": "Sorry, error with database"}}, 400
+        return jsonify(result)
 
 
 api = Api()
